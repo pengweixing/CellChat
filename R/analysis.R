@@ -2846,7 +2846,8 @@ netAnalysis_signalingRole_heatmap <- function(object, signaling = NULL, pattern 
   }
   mat.ori <- mat
   mat <- sweep(mat, 1L, apply(mat, 1, max), '/', check.margin = FALSE)
-  mat[mat == 0] <- NA
+ # mat[mat == 0] <- NA
+  mat[is.na(mat)] <- 0
 
 
   if (is.null(color.use)) {
@@ -2881,7 +2882,7 @@ netAnalysis_signalingRole_heatmap <- function(object, signaling = NULL, pattern 
   }
   ht1 = Heatmap(mat, col = color.heatmap.use, na_col = "white", name = "Relative strength",
                 bottom_annotation = col_annotation, top_annotation = ha2, right_annotation = ha1,
-                cluster_rows = cluster.rows,cluster_columns = cluster.rows,
+                cluster_rows = cluster.rows,cluster_columns = cluster.cols,
                 row_names_side = "left",row_names_rot = 0,row_names_gp = gpar(fontsize = font.size),column_names_gp = gpar(fontsize = font.size),
                 width = unit(width, "cm"), height = unit(height, "cm"),
                 column_title = title,column_title_gp = gpar(fontsize = font.size.title),column_names_rot = 90,
